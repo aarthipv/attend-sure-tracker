@@ -22,15 +22,6 @@ jobs:
     - name: Install Dependencies
       run: npm install
     
-    - name: Install Solana CLI tools
-      run: sh -c "$(curl -sSfL https://release.solana.com/v1.17.0/install)"
-      
-    - name: Add Solana to PATH
-      run: echo "$HOME/.local/share/solana/install/active_release/bin" >> $GITHUB_PATH
-      
-    - name: Verify Solana installation
-      run: solana --version
-    
     - name: Build
       run: npm run build
     
