@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,12 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				attendance: {
+					good: '#4ade80', // Green for good attendance
+					warning: '#facc15', // Yellow for warning zone
+					danger: '#f87171', // Red for danger zone
+					blue: '#3b82f6' // Blue for primary actions
 				}
 			},
 			borderRadius: {
