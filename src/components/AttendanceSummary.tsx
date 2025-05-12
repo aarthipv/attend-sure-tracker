@@ -63,7 +63,7 @@ const AttendanceSummary: React.FC<AttendanceSummaryProps> = ({ courses }) => {
       
       <Card>
         <CardHeader className="pb-2">
-          <CardTitle className="text-sm font-medium text-attendance-danger">Danger Zone (<75%)</CardTitle>
+          <CardTitle className="text-sm font-medium text-attendance-danger">Danger Zone (&lt;75%)</CardTitle>
         </CardHeader>
         <CardContent>
           <p className="text-2xl font-bold">{coursesBelow75}</p>
