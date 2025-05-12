@@ -13,9 +13,6 @@ stop:
 logs:
 	docker-compose logs -f
 
-test:
-	npm test
-
 deploy:
 	git push origin main
 

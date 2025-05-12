@@ -3,11 +3,6 @@ FROM node:18-alpine AS builder
 
 WORKDIR /app
 
-# Install Solana CLI tools
-RUN apk add --no-cache curl bash jq
-RUN sh -c "$(curl -sSfL https://release.solana.com/v1.17.0/install)"
-ENV PATH="/root/.local/share/solana/install/active_release/bin:$PATH"
-
 # Copy project files
 COPY . .
 
@@ -22,8 +17,6 @@ WORKDIR /app
 COPY --from=builder /app/build /app/build
 COPY --from=builder /app/node_modules /app/node_modules
 COPY --from=builder /app/package.json /app/package.json
-COPY --from=builder /root/.local/share/solana /root/.local/share/solana
-ENV PATH="/root/.local/share/solana/install/active_release/bin:$PATH"
 
 EXPOSE 8080
 

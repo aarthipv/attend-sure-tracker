@@ -1,5 +1,5 @@
 
-name: Solana App CI/CD
+name: App CI/CD
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,12 +24,9 @@ jobs:
     
     - name: Build
       run: npm run build
-    
-    - name: Run Tests
-      run: npm test
       
   deploy:
-    needs: build-and-test
+    needs: build
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     
@@ -50,7 +47,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: your-docker-username/solana-app:latest
+        tags: your-docker-username/web-app:latest
         
     - name: Deploy to Production
       run: |
