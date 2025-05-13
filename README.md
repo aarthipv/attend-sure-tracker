@@ -1,7 +1,7 @@
 
-# Web Application with CI/CD and Monitoring
+# Student Attendance Tracker
 
-This repository contains a CI/CD pipeline setup for a web application with monitoring using Prometheus and Grafana.
+This repository contains a CI/CD pipeline setup for the Student Attendance Tracker web application with monitoring using Prometheus and Grafana.
 
 ## Components
 
@@ -33,15 +33,21 @@ This repository contains a CI/CD pipeline setup for a web application with monit
 
 3. Start the local development environment:
    ```
+   npm run dev
+   ```
+
+4. For Docker-based development:
+   ```
+   make build
    make run
    ```
 
-4. View logs:
+5. View logs:
    ```
    make logs
    ```
 
-5. Stop the services:
+6. Stop the services:
    ```
    make stop
    ```
@@ -54,7 +60,20 @@ The CI/CD pipeline automatically runs when:
 
 The pipeline performs the following steps:
 1. Builds the application
-2. Deploys to production (if on main branch)
+2. Uploads the build artifacts
+3. Deploys to production (if on main branch)
+
+### Deployment Configuration
+
+To enable deployment, add the following secrets to your GitHub repository:
+- `DOCKER_USERNAME`: Your Docker Hub username
+- `DOCKER_PASSWORD`: Your Docker Hub password or token
+
+For SSH deployment, also add:
+- `SSH_PRIVATE_KEY`: Your SSH private key
+- `SSH_KNOWN_HOSTS`: SSH known hosts file contents
+- `SSH_USER`: SSH username
+- `SSH_HOST`: SSH host address
 
 ### Monitoring
 
@@ -65,16 +84,11 @@ Initial Grafana login:
 - Username: admin
 - Password: admin
 
-## Environment Variables
-
-Create a `.env` file with your application-specific variables.
-
-## Secrets for CI/CD
-
-Add the following secrets to your GitHub repository for the CI/CD workflow:
-- `DOCKER_USERNAME`: Your Docker Hub username
-- `DOCKER_PASSWORD`: Your Docker Hub password or token
-
 ## Common Commands
 
-See the Makefile for common commands.
+See the Makefile for common commands:
+- `make build`: Build the application containers
+- `make run`: Start all services
+- `make stop`: Stop all services
+- `make logs`: View service logs
+- `make clean`: Remove containers and volumes

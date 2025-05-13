@@ -1,5 +1,5 @@
 
-.PHONY: build run test deploy clean
+.PHONY: build run stop logs deploy clean
 
 build:
 	docker-compose build
@@ -19,3 +19,13 @@ deploy:
 clean:
 	docker-compose down -v
 	docker system prune -f
+
+# Helper commands for developers
+dev:
+	npm run dev
+
+install:
+	npm install
+
+build-local:
+	npm run build

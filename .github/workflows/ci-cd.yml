@@ -25,6 +25,13 @@ jobs:
     - name: Build
       run: npm run build
       
+    # Upload build artifacts for deployment
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-files
+        path: dist/
+      
   deploy:
     needs: build
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -32,6 +39,13 @@ jobs:
     
     steps:
     - uses: actions/checkout@v3
+    
+    # Download the build artifacts
+    - name: Download Build Artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: build-files
+        path: dist
     
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
@@ -47,10 +61,19 @@ jobs:
       with:
         context: .
         push: true
-        tags: your-docker-username/web-app:latest
+        tags: ${{ secrets.DOCKER_USERNAME }}/web-app:latest
         
-    - name: Deploy to Production
+    # Add a concrete deployment step for your specific platform
+    - name: Deploy to Server
+      if: success()
       run: |
-        # Add your deployment script here
         echo "Deploying to production server"
-        # Example: ssh into your server and pull the latest docker image
+        # You can add SSH deployment, AWS, Azure, etc., based on your hosting
+        # Example for SSH deployment:
+        # Install SSH key
+        # mkdir -p ~/.ssh
+        # echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        # chmod 600 ~/.ssh/id_rsa
+        # echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+        # Deploy using SSH
+        # ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "docker pull ${{ secrets.DOCKER_USERNAME }}/web-app:latest && docker-compose -f /path/to/docker-compose.yml up -d"
