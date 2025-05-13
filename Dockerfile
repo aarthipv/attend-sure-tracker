@@ -1,23 +1,15 @@
-
-FROM node:18-alpine AS builder
-
+# Stage 1: Build
+FROM node:18 AS builder
 WORKDIR /app
-
-# Copy project files
-COPY . .
-
-# Install dependencies and build
+COPY package*.json ./
 RUN npm install
+COPY . .
 RUN npm run build
 
-# Production stage
-FROM node:18-alpine AS production
+# Stage 2: Production
+FROM node:18
 WORKDIR /app
-
-COPY --from=builder /app/build /app/build
+COPY --from=builder /app/dist /app/build  
 COPY --from=builder /app/node_modules /app/node_modules
 COPY --from=builder /app/package.json /app/package.json
-
-EXPOSE 8080
-
-CMD ["npm", "run", "start"]
+CMD ["npm", "start"]
