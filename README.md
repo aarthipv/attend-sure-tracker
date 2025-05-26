@@ -92,3 +92,4 @@ See the Makefile for common commands:
 - `make stop`: Stop all services
 - `make logs`: View service logs
 - `make clean`: Remove containers and volumes
+# Testing Workflow
