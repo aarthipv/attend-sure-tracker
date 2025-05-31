@@ -1,4 +1,3 @@
-
 global:
   scrape_interval: 15s
   evaluation_interval: 15s
@@ -12,3 +11,15 @@ scrape_configs:
   - job_name: 'prometheus'
     static_configs:
       - targets: ['localhost:9090']
+
+  - job_name: 'solana'
+    static_configs:
+      - targets: ['localhost:8899']  # Default Solana RPC port
+    metrics_path: '/metrics'
+    scheme: 'http'
+
+  - job_name: 'solana-validator'
+    static_configs:
+      - targets: ['localhost:8899']  # Default Solana validator metrics port
+    metrics_path: '/metrics'
+    scheme: 'http'

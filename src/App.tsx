@@ -8,6 +8,7 @@ import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import Dashboard from "./pages/Dashboard";
 
 const queryClient = new QueryClient();
 
@@ -31,13 +32,11 @@ const App = () => (
               path="/"
               element={
                 <ProtectedRoute>
-                  <div className="p-4">
-                    <h1 className="text-2xl font-bold">Welcome to the Main Page</h1>
-                    {/* Add your main page content here */}
-                  </div>
+                  <Index />
                 </ProtectedRoute>
               }
             />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>
